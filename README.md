@@ -1,18 +1,3 @@
-fastapi-task/
-│
-├── app/
-│   ├── main.py
-│   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   └── routes/
-│       └── tasks.py
-│
-├── requirements.txt
-├── .gitignore
-├── README.md
-└── venv/
-
 
 # FastAPI Task Manager API
 
@@ -89,3 +74,18 @@ Muhammad Nouman
 ## License
 
 This project is open source and available under the MIT License.
+fastapi-task/
+│
+├── app/
+│   ├── main.py
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
+│   └── routes/
+│       └── tasks.py
+│
+├── requirements.txt
+├── .gitignore
+├── README.md
+└── venv/
+
