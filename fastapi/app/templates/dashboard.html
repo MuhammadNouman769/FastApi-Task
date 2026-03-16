@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <header class="dashboard-header">
+        <div>
+            <h1>Welcome, {{ user.full_name }}</h1>
+            <p class="muted">Manage your projects and tasks from this dashboard.</p>
+        </div>
+        <a href="/logout" class="btn-secondary">Logout</a>
+    </header>
+
+    <section class="panel">
+        <h2>Create New Project</h2>
+        <form method="post" action="/projects" class="form-inline">
+            <input name="name" type="text" placeholder="Project name" required>
+            <input name="description" type="text" placeholder="Short description (optional)">
+            <button type="submit" class="btn-primary">Add Project</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h2>Your Projects</h2>
+        {% if projects %}
+            <div class="projects-grid">
+                {% for project in projects %}
+                    <article class="project-card">
+                        <header>
+                            <h3>{{ project.name }}</h3>
+                            {% if project.description %}
+                                <p class="muted">{{ project.description }}</p>
+                            {% endif %}
+                        </header>
+
+                        <section class="tasks">
+                            <h4>Tasks</h4>
+                            {% if project.tasks %}
+                                <ul class="task-list">
+                                    {% for task in project.tasks %}
+                                        <li class="task-item {% if task.is_completed %}completed{% endif %}">
+                                            <form method="post" action="/tasks/{{ task.id }}/toggle">
+                                                <button type="submit" class="task-toggle">
+                                                    {% if task.is_completed %}☑{% else %}☐{% endif %}
+                                                </button>
+                                            </form>
+                                            <div class="task-main">
+                                                <span class="task-title">{{ task.title }}</span>
+                                                {% if task.description %}
+                                                    <span class="task-desc">{{ task.description }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <form method="post" action="/tasks/{{ task.id }}/delete">
+                                                <button type="submit" class="task-delete" title="Delete task">✕</button>
+                                            </form>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p class="muted small">No tasks yet. Add one below.</p>
+                            {% endif %}
+                        </section>
+
+                        <section class="add-task">
+                            <form method="post" action="/projects/{{ project.id }}/tasks" class="form-inline">
+                                <input name="title" type="text" placeholder="New task title" required>
+                                <input name="description" type="text" placeholder="Description (optional)">
+                                <button type="submit" class="btn-secondary">Add Task</button>
+                            </form>
+                        </section>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="muted">You don’t have any projects yet. Create your first project above.</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}
+

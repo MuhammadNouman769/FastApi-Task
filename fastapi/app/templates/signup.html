@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<section class="auth-container">
+    <div class="auth-card">
+        <h1>Create Account</h1>
+        {% if error %}
+            <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+        <form method="post" action="/signup" class="form">
+            <label for="full_name">Full Name</label>
+            <input id="full_name" name="full_name" type="text" required placeholder="Enter Your Name">
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required minlength="6" placeholder="••••••••">
+
+            <button type="submit" class="btn-primary full-width">Sign Up</button>
+        </form>
+
+        <div class="auth-links">
+            <a href="/login">Already have an account? Log in</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

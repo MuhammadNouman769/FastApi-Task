@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}Project Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+<header class="top-nav">
+    <div class="logo">Project & Task Manager</div>
+    <nav>
+        {% if request.session.get('user_id') %}
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout" class="btn-secondary">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/signup" class="btn-primary-outline">Sign Up</a>
+        {% endif %}
+    </nav>
+</header>
+
+<main class="content">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <span>Simple Project & Task Management System</span>
+</footer>
+</body>
+</html>
+
